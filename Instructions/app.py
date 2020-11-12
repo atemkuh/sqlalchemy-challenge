@@ -65,3 +65,24 @@ def home():
 
 ###### END OF LIST OF ROUTES
 
+##### CREATE DATA WITH PRECIPITATION ROUTE 
+@app.route("/api/v1.0/precipitation")
+def precipitation():
+    # Create session engine
+    session = Session(engine)
+
+    """Dipplay dictionary for date and precipitation data"""
+    # Query precipitation data and date values 
+    results = session.query(Measurement.date, Measurement.prcp).all()
+        
+    session.close()
+    
+    # Create a dictionary using date as the key and precipitation as the value.
+    precipitation = []
+    for result in results:
+        r = {}
+        r[result[0]] = result[1]
+        precipitation.append(r)
+
+    return jsonify(precipitation )
+##### END OF DATA WITH PRECIPITATION ROUTE 
