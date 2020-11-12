@@ -34,4 +34,34 @@ query_date = dt.date(2017,8,23) - dt.timedelta(days=365)
 session.close()
 ######################################################
 
+##### CREATE AN APP  ######
+app = Flask(__name__)
+
+#Use Flask to create your routes
+@app.route("/")
+def home():
+    """List all available api routes."""
+    return(
+        f" Welcome to Hawaii Climate Homepage <br/> "
+        f"Available Routes:<br/>"
+        f"<br/>"  
+        f"The list of precipitation data and dates:<br/>"
+        f"/api/v1.0/precipitation<br/>"
+        f"<br/>"
+        f"List of stations and names:<br/>"
+        f"/api/v1.0/stations<br/>"
+        f"<br/>"
+        f"List of 12 months temperature observations from the last data point:<br/>"
+        f"/api/v1.0/tobs<br/>"
+        f"<br/>"
+        f"Min, Max. and Avg. temperatures for chosen start date: (please use 'yyyy-mm-dd' format):<br/>"
+        f"/api/v1.0/min_max_avg/&lt;start date&gt;<br/>"
+        f"<br/>"
+        f"Min. Max. and Avg. temperatures using start and end dates: (please use 'yyyy-mm-dd'/'yyyy-mm-dd' format for start and end values):<br/>"
+        f"/api/v1.0/min_max_avg/&lt;start date&gt;/&lt;end date&gt;<br/>"
+        f"<br/>"
+        f"i.e. <a href='/api/v1.0/min_max_avg/2016-08-23/2017-08-23' target='_blank'>/api/v1.0/min_max_avg/2016-08-23/2017-08-23</a>"
+    )
+
+###### END OF LIST OF ROUTES
 
