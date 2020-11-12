@@ -113,3 +113,11 @@ def stations():
     return jsonify(station_list)
 
     #### END OF STATION DATASET
+
+
+
+    #### CREATE TEMPERATURE DATASET
+@app.route("/api/v1.0/tobs")
+def tobs():
+    # create session engine
+    session = Session(engine)
