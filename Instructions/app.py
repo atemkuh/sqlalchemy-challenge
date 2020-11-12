@@ -86,3 +86,30 @@ def precipitation():
 
     return jsonify(precipitation )
 ##### END OF DATA WITH PRECIPITATION ROUTE 
+
+
+
+####### CREATE STATION DATASET  
+
+@app.route("/api/v1.0/stations")
+def stations():
+    # Create the session engine
+    session = Session(engine)
+    
+    """Return a JSON list of stations from the dataset."""
+    # Query stations list data
+    results = session.query(Station.station, Station.name).all()
+    
+    session.close()
+#list of dicts for each station
+    station_list = []
+    for result in results:
+        r = {}
+        r["station"]= result[0]
+        r["name"] = result[1]
+        station_list.append(r)
+    
+    # jsonify list
+    return jsonify(station_list)
+
+    #### END OF STATION DATASET
