@@ -20,3 +20,18 @@ Base.prepare(engine, reflect=True)
 # Save reference to the tables
 Measurement = Base.classes.measurement
 Station = Base.classes.station
+
+
+# ########set session engine
+session = Session(engine)
+
+# query the last date in the database
+last_date = session.query(Measurement.date).order_by(Measurement.date.desc()).first()
+
+# Calculate a 12month query duratioon from the last data point in the database
+query_date = dt.date(2017,8,23) - dt.timedelta(days=365)
+
+session.close()
+######################################################
+
+
