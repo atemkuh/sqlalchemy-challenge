@@ -142,15 +142,15 @@ def start(start):
 
     """Return a JSON list of the minimum temperature, the average temperature, and the max temperature for a given start or start-end range."""
 
-    # query using any date and convert to yyyy-mm-dd
+    # query data using any date and convert to yyyy-mm-dd
     start_dt = dt.datetime.strptime(start, '%Y-%m-%d')
 
-    # query data using
+    # query session
     results = session.query(func.min(Measurement.tobs), func.avg(Measurement.tobs), func.max(Measurement.tobs)).filter(Measurement.date >= start_dt).all()
 
     session.close()
 
-    # Create a list to hold results
+    # Hold results using a list
     t_list = []
     for result in results:
         new_result = {}
@@ -163,3 +163,13 @@ def start(start):
     # jsonify the result
     return jsonify(t_list)
 
+@app.route("/api/v1.0/min_max_avg/<start>/<end>")
+def start_end(start, end):
+    # create session engine
+    session = Session(engine)
+
+    """Return a JSON list of the minimum temperature, the average temperature, and the max temperature for a given start and end dates."""
+
+    # Format query start & end dates and convert to yyyy-mm-dd
+    start_dt = dt.datetime.strptime(start, '%Y-%m-%d')
+    end_dt = dt.datetime.strptime(end, "%Y-%m-%d")
