@@ -173,3 +173,34 @@ def start_end(start, end):
     # Format query start & end dates and convert to yyyy-mm-dd
     start_dt = dt.datetime.strptime(start, '%Y-%m-%d')
     end_dt = dt.datetime.strptime(end, "%Y-%m-%d")
+
+    # query data for the start date value
+    results = session.query(func.min(Measurement.tobs), func.avg(Measurement.tobs), func.max(Measurement.tobs)).filter(Measurement.date >= start_dt).filter(Measurement.date <= end_dt)
+
+    session.close()
+
+    # Hold results using a list
+    t_list = []
+    for result in results:
+        new_result = {}
+        new_result["StartDate"] = start_dt
+        new_result["EndDate"] = end_dt
+        new_result["TMIN"] = result[0]
+        new_result["TAVG"] = result[1]
+        new_result["TMAX"] = result[2]
+        t_list.append(new_result)
+
+    # jsonify the result
+    return jsonify(t_list)
+
+##########################################################
+#run app
+if __name__ == "__main__":
+    app.run(debug=True)
+
+#############################################################
+
+#           END OF APPLICATION
+
+###########################################################
+
