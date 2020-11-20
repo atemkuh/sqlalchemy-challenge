@@ -135,7 +135,7 @@ def tobs():
     # jsonify the list
     return jsonify(tobs_list)
 
-    @app.route("/api/v1.0/min_max_avg/<start>")
+ @app.route("/api/v1.0/min_max_avg/<start>")
 def start(start):
     # session engine
     session = Session(engine)
